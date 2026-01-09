@@ -1,0 +1,103 @@
+import { useEffect, useState } from "react";
+import axios from "axios";
+import CountryList from "./CountryList";
+import Header from "./Header";
+import SortList from "./SortList";
+import "./Home.css";
+
+import StyledPagination from "../../componets/Pagination";
+
+function Home() {
+  const [allCountry, setAllCountry] = useState([]);
+  const [currentPage, setCurrentPage] = useState(
+    Number(sessionStorage.getItem("pageNum"))
+  );
+  const [sortedCountry, setSortedCountry] = useState([]);
+  const [countItems] = useState(10);
+  const [countSiblings, setCountSiblings] = useState(getCountSiblings());
+
+  function getCountSiblings() {
+    return document.documentElement.clientWidth <= 750 ? 1 : 2;
+  }
+
+  const allPage = Math.ceil(sortedCountry.length / countItems);
+  const lastCountryIndex = currentPage * countItems;
+  const firstCountryIndex = lastCountryIndex - countItems;
+  const currentCountry = sortedCountry.slice(
+    firstCountryIndex,
+    lastCountryIndex
+  );
+
+  const nextListPage = (e, p) => {
+    sessionStorage.setItem("pageNum", p);
+    setCurrentPage(p);
+  };
+
+  useEffect(() => {
+    if (sortedCountry.length === 0) {
+      setSortedCountry(allCountry);
+    }
+  }, [sortedCountry, allCountry]);
+
+  useEffect(() => {
+    const handleResize = () => {
+      setCountSiblings(getCountSiblings());
+    };
+
+    addEventListener("resize", handleResize);
+
+    return () => {
+      removeEventListener("resize", handleResize);
+    };
+  }, []);
+
+  useEffect(() => {
+    const fetchCountryData = async () => {
+      try {
+        const result = await axios.get(
+          "https://restcountries.com/v3.1/all?fields=name,flags,landlocked,capital,population,region,cca3,continents,subregion"
+        );
+
+        const resultAddId = result.data.map((item, i) => {
+          return { ...item, id: i + 1 };
+        });
+        
+        setAllCountry(resultAddId);
+      } catch {
+        setAllCountry("Error");
+      }
+    };
+    fetchCountryData();
+  }, []);
+
+  if (allCountry.length === 0) return <div>Loading...</div>;
+  return (
+    <>
+      <Header allCountry={allCountry} headerText="Countries list" />
+      <div className="center-info">
+        <CountryList contriesOnPage={currentCountry} />
+        <SortList
+          allCountry={allCountry}
+          sortedCountry={sortedCountry}
+          setSortedCountry={setSortedCountry}
+          setCurrentPage={setCurrentPage}
+        ></SortList>
+      </div>
+      <div className="pagination-box">
+        <StyledPagination
+          count={allPage}
+          page={currentPage}
+          variant="outlined"
+          shape="rounded"
+          size={
+            document.documentElement.clientWidth <= 750 ? "medium" : "large"
+          }
+          onChange={nextListPage}
+          siblingCount={countSiblings}
+        ></StyledPagination>
+      </div>
+    </>
+  );
+}
+
+export default Home;

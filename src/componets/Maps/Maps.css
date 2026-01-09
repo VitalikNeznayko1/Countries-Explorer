@@ -1,0 +1,16 @@
+.map {
+  width: 50%;
+  height: 60vh;
+}
+.map_container {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+@media (max-width: 550px) {
+  .map {
+  width: 80%;
+  height: 60vh;
+}
+}

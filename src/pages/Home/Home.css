@@ -1,0 +1,49 @@
+.pagination-box {
+  width: 100%;
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  display: flex;
+  justify-content: center;
+}
+.filter button {
+  margin-bottom: 1px;
+  margin-left: 0.5px;
+}
+.continents {
+  display: flex;
+  flex-direction: column;
+}
+.center-info {
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+}
+.subreg {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+}
+.subreg button {
+  margin-top: 3px;
+  margin-bottom: 3px;
+  margin-left: 1px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 94px;
+  height: 70px;
+}
+.container-filter {
+  display: flex;
+  flex-direction: column;
+  width: 285px;
+}
+@media (max-width: 800px) {
+  .container-filter{
+    display: none;
+  }
+  .navbar{
+    display: flex;
+  }
+}
