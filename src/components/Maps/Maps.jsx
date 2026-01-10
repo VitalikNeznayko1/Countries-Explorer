@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { useJsApiLoader, GoogleMap, Marker } from "@react-google-maps/api";
 import { useParams } from "react-router-dom";
-import axios from "axios";
+import countryApi from "../../api/countryApi";
 import "./Maps.css";
 
 const Maps = () => {
@@ -15,9 +15,8 @@ const Maps = () => {
   useEffect(() => {
     async function fetchCountry() {
       try {
-        const result = await axios(
-          `https://restcountries.com/v3.1/alpha/${cca3}`
-        );
+        const result = await countryApi.getByCode(cca3);
+
         const tmp = result.data.find((item) => item.cca3 === cca3);
         setCountry(tmp);
       } catch {

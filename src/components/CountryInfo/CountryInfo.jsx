@@ -1,12 +1,8 @@
 import "./CountryInfo.css";
-import * as React from "react";
 import { useState } from "react";
-import Box from "@mui/material/Box";
-import Tab from "@mui/material/Tab";
-import TabList from "@mui/lab/TabList";
-import TabPanel from "@mui/lab/TabPanel";
-import TabContext from "@mui/lab/TabContext";
-import Maps from "../../../componets/Maps";
+import { Box, Tab } from "@mui/material";
+import { TabContext, TabList, TabPanel } from "@mui/lab";
+import Maps from "../Maps/Maps";
 import { Link } from "react-router-dom";
 
 function CountryInfo({ country }) {

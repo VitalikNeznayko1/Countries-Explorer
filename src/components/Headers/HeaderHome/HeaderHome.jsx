@@ -1,8 +1,8 @@
 import { useState } from "react";
-import "./Header.css";
+import "./HeaderHome.css";
 import { useNavigate } from "react-router";
 
-function Header({ allCountry, headerText}) {
+export default function HeaderHome({ allCountry, headerText}) {
   const [CountrySearch, setCountrySearch] = useState([]);
   const navigate = useNavigate();
 
@@ -45,5 +45,3 @@ function Header({ allCountry, headerText}) {
     </div>
   );
 }
-
-export default Header;

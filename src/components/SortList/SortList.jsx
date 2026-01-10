@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import "../Home.css";
+import "./SortList.css";
 
 function SortList({
   allCountry,
@@ -28,6 +28,7 @@ function SortList({
 
     setRegion(tmp);
   }, [allCountry]);
+
   const filterById = () => {
     const base = sortedCountry.length ? sortedCountry : allCountry;
     const sorted = [...base].sort((a, b) =>
@@ -40,28 +41,25 @@ function SortList({
     setCurrentPage(1);
   };
 
+  const filterAlphabetically = () => {
+    const base = sortedCountry.length ? sortedCountry : allCountry;
+    const sorted = [...base].sort((a, b) => {
+      if (a.name.common < b.name.common) return flagSortAB ? 1 : -1;
+      if (a.name.common > b.name.common) return flagSortAB ? -1 : 1;
+      return 0;
+    });
 
- const filterAlphabetically = () => {
-   const base = sortedCountry.length ? sortedCountry : allCountry;
-   const sorted = [...base].sort((a, b) => {
-     if (a.name.common < b.name.common) return flagSortAB ? 1 : -1;
-     if (a.name.common > b.name.common) return flagSortAB ? -1 : 1;
-     return 0;
-   });
-
-   setFlagSortAB(!flagSortAB);
-   setFlagSortId(false);
-   setSortedCountry(sorted);
-   setCurrentPage(1);
- };
+    setFlagSortAB(!flagSortAB);
+    setFlagSortId(false);
+    setSortedCountry(sorted);
+    setCurrentPage(1);
+  };
 
   const SortByContinent = (item) => {
     if (currentContinent != item) {
       setCurrentContinent(item);
       setCurrentRegion(null);
-      const tmp = allCountry.filter(
-        (obj) => String(obj.continents) === String(item)
-      );
+      const tmp = allCountry.filter((obj) => obj.continents?.[0] === item);
       setSortedCountry(tmp);
       setCurrentPage(1);
     } else {
@@ -72,19 +70,14 @@ function SortList({
   const ResetAll = () => {
     setCurrentContinent(null);
     setCurrentRegion(null);
-    setFlagSortAB(null);
-    setFlagSortId(null);
-    allCountry.sort((a, b) => {
-      if (a.id < b.id) {
-        return -1;
-      }
-      if (a.id > b.id) {
-        return 1;
-      }
-      return 0;
-    });
-    setSortedCountry(allCountry);
+    setFlagSortAB(false);
+    setFlagSortId(false);
+
+    const sorted = [...allCountry].sort((a, b) => a.id - b.id);
+    setSortedCountry(sorted);
+    setCurrentPage(1);
   };
+
   const SortByRegion = (item) => {
     setCurrentRegion(item);
     const tmp = allCountry.filter(
@@ -92,13 +85,13 @@ function SortList({
         String(obj.continents) === String(currentContinent) &&
         String(obj.subregion) === String(item)
     );
-    
+
     setSortedCountry(tmp);
     setCurrentPage(1);
   };
 
   if (allCountry.length === 0) return <div>Loading...</div>;
-  
+
   return (
     <div className="container-filter">
       <div className="filter">
