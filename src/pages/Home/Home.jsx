@@ -1,11 +1,10 @@
 import { useEffect, useState } from "react";
-import axios from "axios";
-import CountryList from "./CountryList";
-import Header from "./Header";
-import SortList from "./SortList";
+import CountriesList from "../../components/CountriesList/CountriesList";
+import Header from "../../components/Headers/HeaderHome/HeaderHome";
+import SortList from "../../components/SortList/SortList";
+import countryApi from "../../api/countryApi";
+import StyledPagination from "../../components/Pagination/Pagination";
 import "./Home.css";
-
-import StyledPagination from "../../componets/Pagination";
 
 function Home() {
   const [allCountry, setAllCountry] = useState([]);
@@ -54,19 +53,21 @@ function Home() {
   useEffect(() => {
     const fetchCountryData = async () => {
       try {
-        const result = await axios.get(
-          "https://restcountries.com/v3.1/all?fields=name,flags,landlocked,capital,population,region,cca3,continents,subregion"
-        );
+        const result = await countryApi.getAll();
 
-        const resultAddId = result.data.map((item, i) => {
-          return { ...item, id: i + 1 };
-        });
-        
+        const resultAddId = result.data.map((item, i) => ({
+          ...item,
+          id: i + 1,
+        }));
+
         setAllCountry(resultAddId);
-      } catch {
-        setAllCountry("Error");
+        setSortedCountry(resultAddId);
+      } catch (error) {
+        console.error(error);
+        setAllCountry([]);
       }
     };
+
     fetchCountryData();
   }, []);
 
@@ -75,7 +76,7 @@ function Home() {
     <>
       <Header allCountry={allCountry} headerText="Countries list" />
       <div className="center-info">
-        <CountryList contriesOnPage={currentCountry} />
+        <CountriesList contriesOnPage={currentCountry} />
         <SortList
           allCountry={allCountry}
           sortedCountry={sortedCountry}

@@ -1,8 +1,8 @@
 import { useEffect, useState } from "react";
-import axios from "axios";
 import { useParams } from "react-router";
-import CountryInfo from "./CountryInfo";
-import HeaderAbout from "./HeaderAbout";
+import CountryInfo from "../../components/CountryInfo/CountryInfo";
+import HeaderAbout from "../../components/Headers/HeaderAbout/HeaderAbout";
+import countryApi from "../../api/countryApi";
 
 function AboutCountry() {
   const { cca3 } = useParams();
@@ -11,9 +11,8 @@ function AboutCountry() {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const result = await axios.get(
-          `https://restcountries.com/v3.1/alpha/${cca3}`
-        );
+        const result = await countryApi.getByCode(cca3);
+        
         const tmp = result.data.find((item) => item.cca3 === cca3);
         setCountry(tmp);
       } catch (error) {

@@ -1,7 +1,8 @@
 import React, { useState } from "react";
 import { Link } from "react-router-dom";
-import "./CountryList.css";
-function CountryList({ contriesOnPage }) {
+import "./CountriesList.css";
+
+function CountriesList({ contriesOnPage }) {
   const [showDiv, setShowDiv] = useState({
     isVisible: false,
     object: null,
@@ -61,4 +62,4 @@ function CountryList({ contriesOnPage }) {
   );
 }
 
-export default CountryList;
+export default CountriesList;

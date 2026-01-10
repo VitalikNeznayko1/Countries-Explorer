@@ -1,15 +1,16 @@
 import React, { useEffect, useState } from "react";
-import "../Home/Home.css";
-import "./Language.css";
-import axios, { all } from "axios";
-import CountriesList from "../Home/CountryList";
 import { useNavigate, useParams } from "react-router";
 import { Link } from "react-router-dom";
-import SortList from "../Home/SortList";
-import Header from "../Home/Header";
-import StyledPagination from "../../componets/Pagination";
+import CountriesList from "../../components/CountriesList/CountriesList";
+import SortList from "../../components/SortList/SortList";
+import Header from "../../components/Headers/HeaderHome/HeaderHome";
+import StyledPagination from "../../components/Pagination/Pagination";
+import countryApi from "../../api/countryApi";
 
-function CountriesWithOneLanguage() {
+import "../Home/Home.css";
+import "./LanguagePage.css";
+
+function LanguagePage() {
   const { language } = useParams();
   const navigate = useNavigate();
 
@@ -40,9 +41,7 @@ function CountriesWithOneLanguage() {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const result = await axios(
-          `https://restcountries.com/v3.1/lang/${language}`
-        );
+        const result = await countryApi.getByLanguage(language);
 
         const resultId = result.data.map((item, i) => ({
           ...item,
@@ -55,7 +54,7 @@ function CountriesWithOneLanguage() {
 
         setLanguageName(filteredCountry[0]?.languages[language] ?? "");
         setAllCountry(filteredCountry);
-        setSortedCountry([]); 
+        setSortedCountry([]);
         setCurrentPage(1);
       } catch {
         setAllCountry([]);
@@ -63,7 +62,7 @@ function CountriesWithOneLanguage() {
     };
 
     fetchData();
-  }, [language]); 
+  }, [language]);
 
   return (
     <>
@@ -104,4 +103,4 @@ function CountriesWithOneLanguage() {
   );
 }
 
-export default CountriesWithOneLanguage;
+export default LanguagePage;
