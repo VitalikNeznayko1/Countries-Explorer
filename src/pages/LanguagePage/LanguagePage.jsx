@@ -2,11 +2,11 @@ import React, { useEffect, useState } from "react";
 import { useNavigate, useParams } from "react-router";
 import { Link } from "react-router-dom";
 import CountriesList from "../../components/CountriesList/CountriesList";
-import SortList from "../../components/SortList/SortList";
-import Header from "../../components/Headers/HeaderHome/HeaderHome";
-import StyledPagination from "../../components/Pagination/Pagination";
+import StyledPagination from "../../components/StyledPagination/StyledPagination";
 import countryApi from "../../api/countryApi";
 import styles from "./LanguagePage.module.css";
+import SortListContainer from "../../components/SortList/SortListContainer";
+import Header from "../../components/Headers/Header";
 
 function LanguagePage() {
   const { language } = useParams();
@@ -14,7 +14,7 @@ function LanguagePage() {
 
   const [allCountry, setAllCountry] = useState([]);
   const [currentPage, setCurrentPage] = useState(
-    Number(sessionStorage.getItem("pageNum"))
+    Number(sessionStorage.getItem("pageNum")),
   );
   const [languageName, setLanguageName] = useState("");
   const [sortedCountry, setSortedCountry] = useState([]);
@@ -47,7 +47,7 @@ function LanguagePage() {
         }));
 
         const filteredCountry = resultId.filter(
-          (country) => country.languages && country.languages[language]
+          (country) => country.languages && country.languages[language],
         );
 
         setLanguageName(filteredCountry[0]?.languages[language] ?? "");
@@ -65,26 +65,21 @@ function LanguagePage() {
   return (
     <>
       <Header
+        title={`Language: ${languageName}`}
+        showBack
+        searchable
         allCountry={allCountry}
-        headerText={`Language: ${languageName.toUpperCase()}`}
       />
-      <div className={styles.button_back}>
-        <button
-          className={styles.button}
-          onClick={() => navigate(-1)}
-        >{`Back`}</button>
-        <Link key="Back to list" className={styles.button} to="/">
-          <button>Back to list</button>
-        </Link>
-      </div>
       <div className={styles.center_info}>
         <CountriesList contriesOnPage={currentCountry} />
-        <SortList
-          allCountry={allCountry}
-          sortedCountry={sortedCountry}
-          setSortedCountry={setSortedCountry}
-          setCurrentPage={setCurrentPage}
-        ></SortList>
+        <div className={styles.container_filter}>
+          <SortListContainer
+            allCountry={allCountry}
+            sortedCountry={sortedCountry}
+            setSortedCountry={setSortedCountry}
+            setCurrentPage={setCurrentPage}
+          />
+        </div>
         <div className={styles.pagination_box}>
           <StyledPagination
             count={allPage}

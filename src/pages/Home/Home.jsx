@@ -1,15 +1,15 @@
 import { useEffect, useState } from "react";
 import CountriesList from "../../components/CountriesList/CountriesList";
-import Header from "../../components/Headers/HeaderHome/HeaderHome";
-import SortList from "../../components/SortList/SortList";
+import Header from "../../components/Headers/Header";
 import countryApi from "../../api/countryApi";
-import StyledPagination from "../../components/Pagination/Pagination";
+import StyledPagination from "../../components/StyledPagination/StyledPagination";
 import styles from "./Home.module.css";
+import SortListContainer from "../../components/SortList/SortListContainer";
 
 function Home() {
   const [allCountry, setAllCountry] = useState([]);
   const [currentPage, setCurrentPage] = useState(
-    Number(sessionStorage.getItem("pageNum"))
+    Number(sessionStorage.getItem("pageNum")),
   );
   const [sortedCountry, setSortedCountry] = useState([]);
   const [countItems] = useState(10);
@@ -24,7 +24,7 @@ function Home() {
   const firstCountryIndex = lastCountryIndex - countItems;
   const currentCountry = sortedCountry.slice(
     firstCountryIndex,
-    lastCountryIndex
+    lastCountryIndex,
   );
 
   const nextListPage = (e, p) => {
@@ -74,15 +74,17 @@ function Home() {
   if (allCountry.length === 0) return <div>Loading...</div>;
   return (
     <>
-      <Header allCountry={allCountry} headerText="Countries list" />
+      <Header title="Countries list" searchable allCountry={allCountry} />
       <div className={styles.center_info}>
         <CountriesList contriesOnPage={currentCountry} />
-        <SortList
-          allCountry={allCountry}
-          sortedCountry={sortedCountry}
-          setSortedCountry={setSortedCountry}
-          setCurrentPage={setCurrentPage}
-        ></SortList>
+        <div className={styles.container_filter}>
+          <SortListContainer
+            allCountry={allCountry}
+            sortedCountry={sortedCountry}
+            setSortedCountry={setSortedCountry}
+            setCurrentPage={setCurrentPage}
+          />
+        </div>
       </div>
       <div className={styles.pagination_box}>
         <StyledPagination

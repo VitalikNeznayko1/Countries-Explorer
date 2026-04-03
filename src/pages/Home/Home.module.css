@@ -13,3 +13,8 @@
   justify-content: space-between;
 }
 
+.container_filter {
+    display: flex;
+    flex-direction: column;
+    width: 285px;
+}

@@ -1,8 +1,8 @@
 import { useEffect, useState } from "react";
 import { useParams } from "react-router";
 import CountryInfo from "../../components/CountryInfo/CountryInfo";
-import HeaderAbout from "../../components/Headers/HeaderAbout/HeaderAbout";
 import countryApi from "../../api/countryApi";
+import Header from "../../components/Headers/Header";
 
 function AboutCountry() {
   const { cca3 } = useParams();
@@ -12,7 +12,7 @@ function AboutCountry() {
     const fetchData = async () => {
       try {
         const result = await countryApi.getByCode(cca3);
-        
+
         const tmp = result.data.find((item) => item.cca3 === cca3);
         setCountry(tmp);
       } catch (error) {
@@ -30,7 +30,7 @@ function AboutCountry() {
 
   return (
     <>
-      <HeaderAbout />
+      <Header showBack />
       <CountryInfo country={country} />
     </>
   );

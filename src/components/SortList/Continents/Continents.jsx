@@ -1,5 +1,6 @@
 
 import styles from "./Continents.module.css";
+
 const Continents = (props) => {
   return (
     <div>
