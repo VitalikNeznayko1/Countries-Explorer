@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { Link } from "react-router-dom";
-import "./CountriesList.css";
+import styles from "./CountriesList.module.css";
 
 function CountriesList({ contriesOnPage }) {
   const [showDiv, setShowDiv] = useState({
@@ -20,33 +20,33 @@ function CountriesList({ contriesOnPage }) {
     });
   };
   return (
-    <div className="main-page">
-      <div className="country-list">
+    <div className={styles.main_page}>
+      <div className={styles.country_list}>
         {contriesOnPage.map((item) => (
           <Link
-            className="country-item"
+            className={styles.country_item}
             onMouseEnter={() => onMouseEnter(item.id)}
             onMouseLeave={() => onMouseLeave()}
             key={item.name.common}
             to={`/about/${item.cca3}`}
           >
-            <div className="item-right">
+            <div className={styles.item_right} >
               <img src={item.flags.png} alt={item.flags.alt} />
-              <div className="index">{item.id}</div>
+              <div className={styles.index}>{item.id}</div>
             </div>
-            <span className="item-name-common">{item.name.common}</span>
+            <span className={styles.item_name_common}>{item.name.common}</span>
           </Link>
         ))}
       </div>
       <div>
         {showDiv.isVisible && (
-          <div className="info-country-box">
+          <div className={styles.info_country_box}>
             <img
-              className="flag"
+              className={styles.flag}
               src={showDiv.object.flags.png}
               alt={showDiv.object.flags.alt}
             />
-            <div className="country-info">
+            <div className={styles.country_info}>
               <div>Name: {showDiv.object.name.common}</div>
               <div>Capital: {showDiv.object.capital}</div>
               <div>Population: {showDiv.object.population}</div>

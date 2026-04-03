@@ -3,14 +3,14 @@
     margin-left: 0.5px;
 }
 
-.container-filter {
+.container_filter {
     display: flex;
     flex-direction: column;
     width: 285px;
 }
 
 @media (max-width: 800px) {
-    .container-filter {
+    .container_filter {
         display: none;
     }
 

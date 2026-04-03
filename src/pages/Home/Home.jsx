@@ -4,7 +4,7 @@ import Header from "../../components/Headers/HeaderHome/HeaderHome";
 import SortList from "../../components/SortList/SortList";
 import countryApi from "../../api/countryApi";
 import StyledPagination from "../../components/Pagination/Pagination";
-import "./Home.css";
+import styles from "./Home.module.css";
 
 function Home() {
   const [allCountry, setAllCountry] = useState([]);
@@ -75,7 +75,7 @@ function Home() {
   return (
     <>
       <Header allCountry={allCountry} headerText="Countries list" />
-      <div className="center-info">
+      <div className={styles.center_info}>
         <CountriesList contriesOnPage={currentCountry} />
         <SortList
           allCountry={allCountry}
@@ -84,7 +84,7 @@ function Home() {
           setCurrentPage={setCurrentPage}
         ></SortList>
       </div>
-      <div className="pagination-box">
+      <div className={styles.pagination_box}>
         <StyledPagination
           count={allPage}
           page={currentPage}

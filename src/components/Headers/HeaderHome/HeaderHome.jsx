@@ -1,5 +1,5 @@
 import { useState } from "react";
-import "./HeaderHome.css";
+import styles from "./HeaderHome.module.css";
 import { useNavigate } from "react-router";
 
 export default function HeaderHome({ allCountry, headerText}) {
@@ -26,9 +26,9 @@ export default function HeaderHome({ allCountry, headerText}) {
   };
 
   return (
-    <div className="header-container">
-      <div className="header-text">{headerText}</div>
-      <div className="searcher">
+    <div className={styles.header_container}>
+      <div className={styles.header_text}>{headerText}</div>
+      <div className={styles.searcher}>
         <input
           onChange={handleSearchChange}
           placeholder="Search..."
@@ -40,7 +40,9 @@ export default function HeaderHome({ allCountry, headerText}) {
             <option key={item.name.common} value={item.name.common}></option>
           ))}
         </datalist>
-        <button key = "Search" onClick={handleSearchButton}>Search</button>
+        <button key = "Search" className={styles.search_button} onClick={handleSearchButton}>
+          Search
+        </button>
       </div>
     </div>
   );

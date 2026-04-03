@@ -6,9 +6,7 @@ import SortList from "../../components/SortList/SortList";
 import Header from "../../components/Headers/HeaderHome/HeaderHome";
 import StyledPagination from "../../components/Pagination/Pagination";
 import countryApi from "../../api/countryApi";
-
-import "../Home/Home.css";
-import "./LanguagePage.css";
+import styles from "./LanguagePage.module.css";
 
 function LanguagePage() {
   const { language } = useParams();
@@ -70,16 +68,16 @@ function LanguagePage() {
         allCountry={allCountry}
         headerText={`Language: ${languageName.toUpperCase()}`}
       />
-      <div className="button-back">
+      <div className={styles.button_back}>
         <button
-          className="button"
+          className={styles.button}
           onClick={() => navigate(-1)}
         >{`Back`}</button>
-        <Link key="Back to list" className="button" to="/">
+        <Link key="Back to list" className={styles.button} to="/">
           <button>Back to list</button>
         </Link>
       </div>
-      <div className="center-info">
+      <div className={styles.center_info}>
         <CountriesList contriesOnPage={currentCountry} />
         <SortList
           allCountry={allCountry}
@@ -87,7 +85,7 @@ function LanguagePage() {
           setSortedCountry={setSortedCountry}
           setCurrentPage={setCurrentPage}
         ></SortList>
-        <div className="pagination-box">
+        <div className={styles.pagination_box}>
           <StyledPagination
             count={allPage}
             page={currentPage}

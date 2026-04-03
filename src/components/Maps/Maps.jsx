@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import { useJsApiLoader, GoogleMap, Marker } from "@react-google-maps/api";
 import { useParams } from "react-router-dom";
 import countryApi from "../../api/countryApi";
-import "./Maps.css";
+import styles from "./Maps.module.css";
 
 const Maps = () => {
   const { isLoaded } = useJsApiLoader({
@@ -40,9 +40,9 @@ const Maps = () => {
   };
 
   return (
-    <div className="map_container">
+    <div className={styles.map_container}>
       {isLoaded && (
-        <GoogleMap mapContainerClassName="map" zoom={6} center={defaultCenter}>
+        <GoogleMap mapContainerClassName={styles.map} zoom={6} center={defaultCenter}>
           <Marker position={defaultCenter} />
         </GoogleMap>
       )}

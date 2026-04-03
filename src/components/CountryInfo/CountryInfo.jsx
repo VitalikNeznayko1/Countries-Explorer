@@ -1,4 +1,4 @@
-import "./CountryInfo.css";
+import styles from "./CountryInfo.module.css";
 import { useState } from "react";
 import { Box, Tab } from "@mui/material";
 import { TabContext, TabList, TabPanel } from "@mui/lab";
@@ -24,7 +24,7 @@ function CountryInfo({ country }) {
   };
 
   return (
-    <div className="container_CountryInfo">
+    <div className={styles.container_CountryInfo}>
       <TabContext value={value}>
         <Box sx={{ borderBottom: 1, borderColor: "white", color: "white" }}>
           <TabList
@@ -38,19 +38,19 @@ function CountryInfo({ country }) {
           </TabList>
         </Box>
         <TabPanel value="1">
-          <div className="container-info">
-            <div className="country-info-box">
-              <div className="flags">
+          <div className={styles.container_info}>
+            <div className={styles.country_info_box}>
+              <div className={styles.flags}>
                 <img src={country.flags.png} alt={country.flags.alt}></img>
               </div>
               <div>
-                <div className="name-country">
+                <div className={styles.name_country}>
                   {country.name.official === undefined
                     ? "-"
                     : country.name.official}
                 </div>
-                <div className="info-block">
-                  <div className="info">
+                <div className={styles.info_block}>
+                  <div className={styles.info}>
                     <div>
                       <p>
                         Population:{" "}
@@ -67,7 +67,7 @@ function CountryInfo({ country }) {
                         {country.capital === undefined ? "-" : country.capital}
                       </p>
                     </div>
-                    <div className="languages">
+                    <div className={styles.languages}>
                       <p>
                         Continets:{" "}
                         {country.continents === undefined
@@ -78,7 +78,7 @@ function CountryInfo({ country }) {
                         Languages:{" "}
                         {langKey.map((item, index) => (
                           <Link
-                            className="language"
+                            className={styles.language}
                             key={item}
                             to={`/home/language/${item}`}
                           >
@@ -103,9 +103,9 @@ function CountryInfo({ country }) {
                     </div>
                   </div>
                   <div>
-                    <p className="container-border">
-                      <span className="text-border">Borders:</span>
-                      <span className="border">
+                    <p className={styles.container_border}>
+                      <span className={styles.text_border}>Borders:</span>
+                      <span className={styles.border}>
                         {country.borders === undefined
                           ? "-"
                           : country.borders.map((item) => (
@@ -122,11 +122,11 @@ function CountryInfo({ country }) {
           </div>
         </TabPanel>
         <TabPanel value="2">
-          <div className="container-info">
-            <div className="country-info-box">
+          <div className={styles.container_info}>
+            <div className={styles.country_info_box}>
               <div
                 className={
-                  country.coatOfArms.svg == null ? "flags" : "coatofarms-box"
+                  country.coatOfArms.svg == null ? styles.flags : styles.coatofarms_box
                 }
               >
                 {country.coatOfArms.svg == null ? (
@@ -139,13 +139,13 @@ function CountryInfo({ country }) {
                 )}
               </div>
               <div>
-                <div className="name-country">
+                <div className={styles.name_country}>
                   {country.name.common === undefined
                     ? "-"
                     : country.name.common}
                 </div>
-                <div className="info-block">
-                  <div className="info">
+                <div className={styles.info_block}>
+                  <div className={styles.info}>
                     <div>
                       <p>
                         Area: {country.area === undefined ? "-" : country.area}
@@ -172,7 +172,7 @@ function CountryInfo({ country }) {
                           : country.startOfWeek}
                       </p>
                     </div>
-                    <div className="languages">
+                    <div className={styles.languages}>
                       <p>
                         Status:{" "}
                         {country.status === undefined ? "-" : country.status}
