@@ -3,13 +3,13 @@ export default function CountryPreview({ showDiv }) {
   return (
     <div>
       {showDiv.isVisible && (
-        <div className={styles.info_country_box}>
+        <div className={styles.country_preview_box}>
           <img
             className={styles.flag}
             src={showDiv.object.flags.png}
             alt={showDiv.object.flags.alt}
           />
-          <div className={styles.country_info}>
+          <div className={styles.country_preview}>
             <div>Name: {showDiv.object.name.common}</div>
             <div>Capital: {showDiv.object.capital}</div>
             <div>Population: {showDiv.object.population}</div>
