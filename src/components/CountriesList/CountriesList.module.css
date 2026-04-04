@@ -60,28 +60,3 @@
   width: 60px;
   height: 48px;
 }
-@media (max-width: 1250px) {
-  .info_country_box{
-    display: none;
-  }
-}
-@media (max-width: 800px) {
-  .country_item {
-    width: 268px;
-    font-size: 17px;
-  }
-  .country_item {
-    width: 230%;
-  }
-  .country_item:hover {
-    width: 230%;
-  }
-  .country_list {
-    display: flex;
-    flex-direction: column;
-    margin-left: 1%;
-  }
-  .item_right div {
-    padding-left: 25px;
-  }
-}
