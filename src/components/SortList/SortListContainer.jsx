@@ -1,7 +1,6 @@
 import { useEffect, useState } from "react";
 import SortList from "./SortList";
 import Continents from "./Continents/Continents";
-import styles from "./SortList.module.css";
 
 function SortListContainer({
   allCountry,

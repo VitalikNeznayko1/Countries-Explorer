@@ -5,38 +5,26 @@ import countryApi from "../../api/countryApi";
 import StyledPagination from "../../components/StyledPagination/StyledPagination";
 import styles from "./Home.module.css";
 import SortListContainer from "../../components/SortList/SortListContainer";
+import usePagination from "../../hooks/usePagination";
 
 function Home() {
   const [allCountry, setAllCountry] = useState([]);
-  const [currentPage, setCurrentPage] = useState(
-    Number(sessionStorage.getItem("pageNum")),
-  );
-  const [sortedCountry, setSortedCountry] = useState([]);
-  const [countItems] = useState(10);
   const [countSiblings, setCountSiblings] = useState(getCountSiblings());
 
+  const {
+    currentPage,
+    setCurrentPage,
+    sortedData,
+    setSortedData,
+    currentItems,
+    totalPages,
+    changePage,
+  } = usePagination(allCountry, 10);
+
+  
   function getCountSiblings() {
     return document.documentElement.clientWidth <= 750 ? 1 : 2;
   }
-
-  const allPage = Math.ceil(sortedCountry.length / countItems);
-  const lastCountryIndex = currentPage * countItems;
-  const firstCountryIndex = lastCountryIndex - countItems;
-  const currentCountry = sortedCountry.slice(
-    firstCountryIndex,
-    lastCountryIndex,
-  );
-
-  const nextListPage = (e, p) => {
-    sessionStorage.setItem("pageNum", p);
-    setCurrentPage(p);
-  };
-
-  useEffect(() => {
-    if (sortedCountry.length === 0) {
-      setSortedCountry(allCountry);
-    }
-  }, [sortedCountry, allCountry]);
 
   useEffect(() => {
     const handleResize = () => {
@@ -61,7 +49,6 @@ function Home() {
         }));
 
         setAllCountry(resultAddId);
-        setSortedCountry(resultAddId);
       } catch (error) {
         console.error(error);
         setAllCountry([]);
@@ -74,28 +61,28 @@ function Home() {
   if (allCountry.length === 0) return <div>Loading...</div>;
   return (
     <>
-      <Header title="Countries list" searchable allCountry={allCountry} />
+      <Header title="Countries list" searchable allCountry={currentItems} />
       <div className={styles.center_info}>
-        <CountriesList contriesOnPage={currentCountry} />
+        <CountriesList contriesOnPage={currentItems} />
         <div className={styles.container_filter}>
           <SortListContainer
             allCountry={allCountry}
-            sortedCountry={sortedCountry}
-            setSortedCountry={setSortedCountry}
+            sortedCountry={sortedData}
+            setSortedCountry={setSortedData}
             setCurrentPage={setCurrentPage}
           />
         </div>
       </div>
       <div className={styles.pagination_box}>
         <StyledPagination
-          count={allPage}
+          count={totalPages}
           page={currentPage}
+          onChange={changePage}
           variant="outlined"
           shape="rounded"
           size={
             document.documentElement.clientWidth <= 750 ? "medium" : "large"
           }
-          onChange={nextListPage}
           siblingCount={countSiblings}
         ></StyledPagination>
       </div>
