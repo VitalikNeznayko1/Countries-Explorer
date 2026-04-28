@@ -14,6 +14,13 @@
     background-color: #1f1e1e;
 }
 
+.flags {
+    margin: 0px 60px 0px 14px;
+}
+
+.flags img {
+    width: 100%;
+}
 .coatofarms_box {
     display: flex;
     align-items: center;

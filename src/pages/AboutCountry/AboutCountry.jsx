@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 import { useParams } from "react-router";
 import CountryInfo from "../../components/CountryInfo/CountryInfo";
 import countryApi from "../../api/countryApi";
-import Header from "../../components/Headers/Header";
+import Header from "../../components/Header/Header";
 
 function AboutCountry() {
   const { cca3 } = useParams();

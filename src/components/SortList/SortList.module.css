@@ -2,6 +2,10 @@
     margin-bottom: 1px;
     margin-left: 0.5px;
 }
+.active {
+    border-color: #646cff;
+    color: white;
+}
 
 @media (max-width: 800px) {
     .container_filter {

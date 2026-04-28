@@ -37,9 +37,9 @@ export default function Header({
         {showBack && (
           <>
             <button onClick={() => navigate(-1)}>Back</button>
-            <Link to="/">
-              <button>Back to list</button>
-            </Link>
+            <button>
+              <Link to="/">Back to list</Link>
+            </button>
           </>
         )}
       </div>

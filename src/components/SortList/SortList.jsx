@@ -3,13 +3,19 @@ import styles from "./SortList.module.css";
 function SortList(props) {
   return (
     <div className={styles.filter}>
-      <button key="id" variant="contained" onClick={() => props.filterById()}>
+      <button
+        key="id"
+        variant="contained"
+        onClick={() => props.filterById()}
+        className={props.flagSortId ? styles.active : ""}
+      >
         Filter id{props.flagSortId ? "↓" : "↑"}
       </button>
       <button
         key="AB"
         variant="contained"
         onClick={() => props.filterAlphabetically()}
+        className={props.flagSortAB ? styles.active : ""}
       >
         Filter {!props.flagSortAB ? "A-Y" : "Y-A"}
       </button>

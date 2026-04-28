@@ -15,17 +15,17 @@ function SortListContainer({
   const [regions, setRegions] = useState({});
 
   useEffect(() => {
-    const tmp = allCountry.reduce((acc, country) => {
+    const tmp = {};
+
+    allCountry.forEach((country) => {
       const continent = country.continents?.[0];
       const subregion = country.subregion;
 
-      if (!continent || !subregion) return acc;
+      if (!continent || !subregion) return;
 
-      if (!acc[continent]) acc[continent] = new Set();
-      acc[continent].add(subregion);
-
-      return acc;
-    }, {});
+      if (!tmp[continent]) tmp[continent] = new Set();
+      tmp[continent].add(subregion);
+    });
 
     setRegions(tmp);
   }, [allCountry]);
@@ -70,10 +70,10 @@ function SortListContainer({
   const SortByRegion = (item) => {
     setCurrentRegion(item);
 
+    const continent = currentContinent;
+
     const tmp = allCountry.filter(
-      (obj) =>
-        obj.continents?.[0] === currentContinent &&
-        obj.subregion === item,
+      (obj) => obj.continents?.[0] === continent && obj.subregion === item,
     );
 
     setSortedCountry(tmp);
@@ -85,9 +85,7 @@ function SortListContainer({
       setCurrentContinent(item);
       setCurrentRegion(null);
 
-      const tmp = allCountry.filter(
-        (obj) => obj.continents?.[0] === item,
-      );
+      const tmp = allCountry.filter((obj) => obj.continents?.[0] === item);
 
       setSortedCountry(tmp);
     } else {
@@ -113,9 +111,9 @@ function SortListContainer({
       <Continents
         regions={regions}
         currentContinent={currentContinent}
+        currentRegion={currentRegion}
         SortByContinent={SortByContinent}
         SortByRegion={SortByRegion}
-        currentRegion={currentRegion}
       />
     </>
   );

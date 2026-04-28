@@ -5,7 +5,7 @@ import StyledPagination from "../../components/StyledPagination/StyledPagination
 import countryApi from "../../api/countryApi";
 import styles from "./LanguagePage.module.css";
 import SortListContainer from "../../components/SortList/SortListContainer";
-import Header from "../../components/Headers/Header";
+import Header from "../../components/Header/Header";
 import usePagination from "../../hooks/usePagination";
 
 function LanguagePage() {
@@ -22,8 +22,7 @@ function LanguagePage() {
     currentItems,
     totalPages,
     changePage,
-  } = usePagination(allCountry, 10);
-
+  } = usePagination(allCountry, 9);
 
   useEffect(() => {
     const fetchData = async () => {

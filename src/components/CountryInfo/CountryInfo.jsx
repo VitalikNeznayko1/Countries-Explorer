@@ -5,17 +5,20 @@ import { TabContext, TabList, TabPanel } from "@mui/lab";
 import Maps from "./Maps/Maps";
 import MainInfo from "./MainInfo/MainInfo";
 import MoreInfo from "./MoreInfo/MoreInfo";
+import { useParams } from "react-router";
+import { useSearchParams } from "react-router-dom";
 
 function CountryInfo({ country }) {
-  const [value, setValue] = useState("1");
+  const [searchParams, setSearchParams] = useSearchParams();
+  const value = searchParams.get("tab") || "1";
 
-  if (country.cca3 == "RUS") {
+  if (country.cca3 === "RUS") {
     window.open("https://www.youtube.com/watch?v=dQw4w9WgXcQ");
     return "Not available";
   }
 
-  const handleChange = (e, p) => {
-    setValue(p);
+  const handleChange = (e, newValue) => {
+    setSearchParams({ tab: newValue });
   };
 
   return (

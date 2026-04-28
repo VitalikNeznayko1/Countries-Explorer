@@ -6,6 +6,7 @@ export default function MainInfo({ country }) {
     country.currencies != null ? Object.keys(country.currencies) : null;
   const langKey =
     country.languages != null ? Object.keys(country.languages) : null;
+    
   return (
     <div className={styles.container_info}>
       <div className={styles.country_info_box}>
@@ -37,8 +38,8 @@ export default function MainInfo({ country }) {
                   {country.continents === undefined ? "-" : country.continents}
                 </p>
                 <p>
-                  Languages:{" "}
-                  {langKey.map((item, index) => (
+                  Languages:{" "} 
+                  {langKey && langKey.map((item, index) => (
                     <Link
                       className={styles.language}
                       key={item}

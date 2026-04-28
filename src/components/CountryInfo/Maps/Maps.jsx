@@ -2,12 +2,12 @@ import React, { useEffect, useState } from "react";
 import { useJsApiLoader, GoogleMap, Marker } from "@react-google-maps/api";
 import { useParams } from "react-router-dom";
 import countryApi from "../../../api/countryApi";
-import styles from "./Maps.module.css";
+import styles from "./Maps.module.css"; 
 
 const Maps = ({ country }) => {
   const { isLoaded } = useJsApiLoader({
     id: "google-map-script",
-    googleMapsApiKey: "AIzaSyBcbQOenBrouiGdjYHHIpHvAD9Lzxn3K84",
+    googleMapsApiKey: import.meta.env.VITE_GOOGLE_MAPS_API_KEY,
   });
 
   if (!country) {

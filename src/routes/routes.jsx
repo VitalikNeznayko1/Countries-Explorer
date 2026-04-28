@@ -9,7 +9,7 @@ function AppRouter(){
       <Routes>
         <Route path="/home" element={<Home />} />
         <Route path="/about/:cca3" element={<AboutCountry />} />
-        <Route path="" element={<Navigate to="/home" />} />
+        <Route path="/" element={<Navigate to="/home" />} />
         <Route path="/home/language/:language" element={<LanguagePage />} />
       </Routes>
     );

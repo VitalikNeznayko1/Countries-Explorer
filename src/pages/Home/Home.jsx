@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import CountriesList from "../../components/CountriesList/CountriesList";
-import Header from "../../components/Headers/Header";
+import Header from "../../components/Header/Header";
 import countryApi from "../../api/countryApi";
 import StyledPagination from "../../components/StyledPagination/StyledPagination";
 import styles from "./Home.module.css";
@@ -21,7 +21,6 @@ function Home() {
     changePage,
   } = usePagination(allCountry, 10);
 
-  
   function getCountSiblings() {
     return document.documentElement.clientWidth <= 750 ? 1 : 2;
   }
@@ -59,9 +58,10 @@ function Home() {
   }, []);
 
   if (allCountry.length === 0) return <div>Loading...</div>;
+ 
   return (
     <>
-      <Header title="Countries list" searchable allCountry={currentItems} />
+      <Header title="Countries list" searchable allCountry={allCountry} />
       <div className={styles.center_info}>
         <CountriesList contriesOnPage={currentItems} />
         <div className={styles.container_filter}>
